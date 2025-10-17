@@ -10,6 +10,6 @@ public class AccueilController {
 
     @GetMapping("message")
     public String message() {
-        return "Hello World";
+        return "Hello formation jenkins";
     }
 }
