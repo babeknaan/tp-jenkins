@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        URL= 'https://github.com/babeknaan/tp-jenkins.git'
+        URL_GIT= 'https://github.com/babeknaan/tp-jenkins.git'
     }
-    
+
     parameters {
         string(name:"version",description:"version du projet")
         choice(name:"environement", choices:["test","preprod","prod"],description:"environnement de deploiement")
@@ -16,7 +16,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: "main"]],
                     userRemoteConfigs: [[
-                        url: "${URL}",
+                        url: "${URL_GIT}",
                     ]]
                 ]}
                 echo "cloner le projet"
@@ -36,8 +36,8 @@ pipeline {
         }
                 stage('Deploy') {
             steps {
-                echo "parameters "
-                echo 'Download configuration'
+                echo "Environnement : ${params.environement}"
+                scp "target/*.jar tmp"
                 echo 'Deploy project'
             }
         }
