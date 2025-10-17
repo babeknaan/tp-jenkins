@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        URL= 'https://github.com/babeknaan/tp-jenkins.git'
+    }
     stages {
         stage('Cloner repo') {
             steps {
@@ -8,7 +10,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: "main"]],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/babeknaan/tp-jenkins.git',
+                        url: "${URL}",
                     ]]
                 ]}
                 echo "cloner le projet"
