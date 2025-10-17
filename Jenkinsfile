@@ -27,8 +27,8 @@ pipeline {
         }
         stage('Build Project') {
             steps {
-                sh 'chmod +x mvnw'
-                sh './mvnw clean package spring-boot:repackage -Dmaven.test.skip=true'
+                sh "chmod +x mvnw"
+                sh "./mvnw clean package spring-boot:repackage -Dmaven.test.skip=true"
             }
         }
         stage('Test') {
