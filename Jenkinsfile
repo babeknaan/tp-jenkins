@@ -42,7 +42,7 @@ pipeline {
                 sshPublisherDesc(
                     publishers: [
                     configName: "training-server",
-                    transfers[
+                    transfers: [
                         sshTransfer(
                             sourceFiles: 'target/*.jar',
                             remoteDirectory: '/tmp'
