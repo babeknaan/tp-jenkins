@@ -3,6 +3,12 @@ pipeline {
     environment {
         URL= 'https://github.com/babeknaan/tp-jenkins.git'
     }
+    
+    parameters {
+        string(name:"version",description:"version du projet")
+        choice(name:"environement", choices:["test","preprod","prod"],description:"environnement de deploiement")
+    }
+
     stages {
         stage('Cloner repo') {
             steps {
@@ -14,11 +20,13 @@ pipeline {
                     ]]
                 ]}
                 echo "cloner le projet"
+                sh "printenv"
             }
         }
-        stage('Build') {
+        stage('Build Project') {
             steps {
-                echo 'Build project'
+                sh 'chmod +x mvnw'
+                sh './mvnw clean package spring-boot:repackage -Dmaven.test.skip=true'
             }
         }
         stage('Test') {
@@ -28,7 +36,7 @@ pipeline {
         }
                 stage('Deploy') {
             steps {
-                echo 'Connect to server'
+                echo "parameters "
                 echo 'Download configuration'
                 echo 'Deploy project'
             }
