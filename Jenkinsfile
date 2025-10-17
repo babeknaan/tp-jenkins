@@ -39,16 +39,20 @@ pipeline {
                 stage('Deploy') {
             steps {
                 echo "Environnement : ${params.environement}"
-                sshPublisherDesc(
+                sshPublisher(
                     publishers: [
-                    configName: "training-server",
-                    transfers: [
-                        sshTransfer(
-                            sourceFiles: 'target/*.jar',
-                            remoteDirectory: '/tmp'
+                        sshPublisherDesc(
+                            configName: 'training-server',  // correspond au Nom de la configuration
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: 'target/*.jar',
+                                    remoteDirectory: '/tmp',
+                                    execCommand: 'ls -al'
+                                )
+                            ]
                         )
                     ]
-                ])
+                )
                 //scp "target/*.jar tmp"
                 //ssh -i id_ed25519 
                 echo 'Deploy project'
