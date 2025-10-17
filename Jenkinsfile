@@ -13,14 +13,14 @@ pipeline {
     stages {
         stage('Cloner repo') {
             steps {
-                checkout{[
+                checkout([
                     $class: 'GitSCM',
                     branches: [[name: "main"]],
                     userRemoteConfigs: [[
                         url: "${URL_GIT}",
                         credentialsId: "${CREDENTIAL_ID}"
                     ]]
-                ]}
+                ])
                 echo "cloner le projet"
                 sh "printenv"
             }
@@ -39,7 +39,17 @@ pipeline {
                 stage('Deploy') {
             steps {
                 echo "Environnement : ${params.environement}"
-                scp "target/*.jar tmp"
+                sshPublisherDesc(
+                    publishers: [
+                    configName: "training-server",
+                    transfers[
+                        sshTransfer(
+                            sourceFiles: 'target/*.jar',
+                            remoteDirectory: '/tmp'
+                        )
+                    ]
+                ])
+                //scp "target/*.jar tmp"
                 //ssh -i id_ed25519 
                 echo 'Deploy project'
             }
