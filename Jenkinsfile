@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         URL_GIT= 'https://github.com/babeknaan/tp-jenkins.git'
+        CREDENTIAL_ID="leo_openbar"
     }
 
     parameters {
@@ -17,6 +18,7 @@ pipeline {
                     branches: [[name: "main"]],
                     userRemoteConfigs: [[
                         url: "${URL_GIT}",
+                        credentialsId: "${CREDENTIAL_ID}",
                     ]]
                 ]}
                 echo "cloner le projet"
@@ -38,6 +40,7 @@ pipeline {
             steps {
                 echo "Environnement : ${params.environement}"
                 scp "target/*.jar tmp"
+                ssh -i id_ed25519 
                 echo 'Deploy project'
             }
         }
