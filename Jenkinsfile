@@ -18,7 +18,7 @@ pipeline {
                     branches: [[name: "main"]],
                     userRemoteConfigs: [[
                         url: "${URL_GIT}",
-                        credentialsId: "${CREDENTIAL_ID}",
+                        credentialsId: "${CREDENTIAL_ID}"
                     ]]
                 ]}
                 echo "cloner le projet"
