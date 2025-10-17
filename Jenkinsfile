@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo "Environnement : ${params.environement}"
                 scp "target/*.jar tmp"
-                ssh -i id_ed25519 
+                //ssh -i id_ed25519 
                 echo 'Deploy project'
             }
         }
