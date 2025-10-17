@@ -36,7 +36,7 @@ pipeline {
                 echo 'Test project'
             }
         }
-                stage('Deploy') {
+        stage('Deploy') {
             steps {
                 echo "Environnement : ${params.environement}"
                 sshPublisher(
